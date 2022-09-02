@@ -65,7 +65,7 @@ class BasicTable extends React.Component<TableProps> {
       return row.name.toLowerCase().includes(searchVal.toLowerCase())
       || row.username.toLowerCase().includes(searchVal.toLowerCase())
     });
-    
+
     this.setState({
       rows: sortUser(filters)
     })
@@ -117,7 +117,11 @@ class BasicTable extends React.Component<TableProps> {
                 <TableCell>{row.email}</TableCell>
                 <TableCell>{row.address.city}</TableCell>
                 <TableCell>{row.phone}</TableCell>
-                <TableCell>{row.website}</TableCell>
+                <TableCell>
+                  <a href={`http://${row.website}`} target='_blank' rel="noreferrer">
+                    {row.website}
+                  </a>
+                </TableCell>
                 <TableCell>{row.company.name}</TableCell>
               </TableRow>
             ))}

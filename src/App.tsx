@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react'
 import { 
-  Button, 
-  Container
-} from '@mui/material'
+  Container,
+  IconButton
+} from '@mui/material';
+import CachedIcon from '@mui/icons-material/Cached';
 import './App.css';
 import Loading from './components/loading';
 import { connect } from 'react-redux';
@@ -38,6 +39,11 @@ class App extends Component<AppProps> {
     users: [],
   }
 
+
+  componentDidMount() {
+    this.onReload();
+  }
+
   componentDidUpdate(prevProp: any) {
     if(prevProp !== this.props && this.props.users) {
       this.setState({
@@ -57,16 +63,17 @@ class App extends Component<AppProps> {
   render(){
     return(
       <Fragment>
-        <Container>
-          <Button variant="contained"
-            onClick={() => {this.onReload()}}
-          > 
-            Reload 
-          </Button>
+        <Container sx={{display:'flex', flexDirection:'column'}}>
+          <IconButton color="primary" aria-label="reload" onClick={() => {this.onReload()}}>
+            <CachedIcon />
+          </IconButton>
+          <br/>
           {
             this.state.users &&
             this.state.users.length > 0 &&
-            <BasicTable rows={this.state.users} />
+            <Container>
+              <BasicTable rows={this.state.users} />
+            </Container>
           }
         </Container>
         {
